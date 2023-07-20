@@ -8,8 +8,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="MobileOptimized" content="320">
     <meta http-equiv="content-language" content="vi" />
-    <meta name="copyright" content="Vi Đức Hùng" />
-    <meta name="author" content="Vi Đức Hùng" />
     <meta name="robots" content="index, follow" />
     <meta name="revisit-after" content="1 days" />
     <meta http-equiv="content-language" content="vi" />
@@ -31,20 +29,23 @@
             margin: 0 auto;
             padding: 50px;
             text-align: center;
-            background-color: transparent; /* Transparent background */
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: glowingBorder 2s infinite;
         }
 
         h1 {
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 20px;
-            animation: colorChange 5s infinite;
+            animation: blinkText 2s infinite;
         }
 
         h2 {
             font-size: 24px;
             margin-bottom: 15px;
-            animation: colorChange 5s infinite reverse;
+            animation: blinkText 2s infinite reverse;
         }
 
         .button {
@@ -65,12 +66,20 @@
                 inset -1px -1px 6px rgba(218, 218, 218, 0.75);
         }
 
-        @keyframes colorChange {
-            0% { color: #4c56af; }
-            25% { color: #8e44ad; }
-            50% { color: #e74c3c; }
-            75% { color: #27ae60; }
-            100% { color: #4c56af; }
+        @keyframes blinkText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes glowingBorder {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5); }
+        }
+
+        .copyright {
+            font-size: 12px;
+            margin-top: 20px;
+            color: #ccc;
         }
     </style>
 </head>
@@ -78,8 +87,8 @@
 <body>
     <div class="container">
         <h1>KEY FREE BY HÙNG</h1>
-        <h2>Thông báo vượt key thành công</h2>
-
+        <h2>Vượt Key Thành Công</h2>
+        <h2>Chúc Bạn Dùng Tool Vui Vẻ</h2>
         <br>
         <br>
         <br>
@@ -99,6 +108,10 @@
                     </button>
                 </p>
             </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2023 - Website By Vi Đức Hùng
         </div>
     </div>
 
@@ -124,10 +137,10 @@
             var $temp = $("<input>");
             $("body").append($temp);
             $temp.val($(element).text()).select();
-            document.execCommand("copy");
+            document.execCommand("COPY");
             $temp.remove();
 
-            return confirm('Bạn đã copy key');
+            return confirm('COPY THÀNH CÔNG');
         }
     </script>
 </body>
