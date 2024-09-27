@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViDucHung - BTVN</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    .audio-player {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+      width: 300px;
+    }
+    
+    h2 {
+      color: #ff4d4d;
+      margin-bottom: 15px;
+      font-size: 24px;
+      text-shadow: 2px 2px #ffcccc;
+    }
+    
+    audio {
+      width: 100%;
+      margin-bottom: 10px;
+      border: 2px solid #ffcccb;
+      border-radius: 10px;
+      outline: none;
+    }
+    
+    .controls button {
+      background-color: #ff66b2;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #ff3399;
+    }
+    
+    .controls button:hover {
+      background-color: #ff3385;
+      box-shadow: 0 6px #cc0066;
+      transform: translateY(-2px);
+    }
+    
+    .controls button:active {
+      box-shadow: 0 2px #ff3399;
+      transform: translateY(2px);
+    }
+    
+    /* Keyframes for floating effect */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    /* Keyframes for glowing text effect */
+    @keyframes text-glow {
+      0%, 100% {
+        text-shadow: 2px 2px #ffcccc, 4px 4px #ff99cc;
+      }
+      50% {
+        text-shadow: 4px 4px #ffcccc, 6px 6px #ff99cc;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      background-color: #fef3f3;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background-color: #ff6b6b;
+      padding: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    .navbar ul li {
+      margin: 0 15px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffcccb;
+    }
+
+    /* Main Content */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .audio-player {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: float 6s ease-in-out infinite;
+      width: 300px;
+    }
+
+
+    audio {
+      width: 100%;
+      margin-bottom: 10px;
+      border: 2px solid #ffcccb;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .controls button {
+      background-color: #ff66b2;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #ff3399;
+    }
+
+    .controls button:hover {
+      background-color: #ff3385;
+      box-shadow: 0 6px #cc0066;
+      transform: translateY(-2px);
+    }
+
+    .controls button:active {
+      box-shadow: 0 2px #ff3399;
+      transform: translateY(2px);
+    }
+
+    /* Keyframes for floating effect */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Keyframes for glowing text effect */
+    @keyframes text-glow {
+      0%, 100% {
+        text-shadow: 2px 2px #ffcccc, 4px 4px #ff99cc;
+      }
+      50% {
+        text-shadow: 4px 4px #ffcccc, 6px 6px #ff99cc;
+      }
+    }
+
+    /* Info Section */
+    .info {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .info h3 {
+      color: #ff4d4d;
+      margin-bottom: 10px;
+    }
+
+    .info p {
+      color: #666;
+    }
+
+    /* Footer Section */
+    footer {
+      background-color: #ff6b6b;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      position: relative;
+      width: 30%;
+      box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="https://xiongdev.click/">Home</a></li>
+      <li><a href="#">Music</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div class="audio-player">
+      <h2>Btvn - Tiếng Trung cơ bản 1</h2>
+      <audio id="audioPlayer" controls>
+        <source src="./audio/bai2.m4a" type="audio/mp3">
+        Trình duyệt của bạn không hỗ trợ phát audio.
+      </audio>
+      <div class="controls">
+        <button onclick="skip(-15)">Tua lại 15s</button>
+        <button onclick="skip(15)">Tua tới 15s</button>
+      </div>
+    </div>
+
+    <!-- Information Section -->
+    <section class="info">
+      <h3>Thông tin:</h3>
+      <p>Đây là trình phát bài tập Tiếng Trung cơ bản 1 của sinh viên Vi Đức Hùng.</p>
+    </section>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 ViDucHung. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    function skip(time) {
+      audioPlayer.currentTime += time;
+    }
+  </script>
+</body>
+</html>
