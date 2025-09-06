@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>CazyStore Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:sans-serif;background:#000;color:#eee;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+    #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;pointer-events:none}
+
+    /* TOPBAR */
+    .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;padding:12px 20px;background:rgba(20,0,0,0.6);backdrop-filter:blur(6px)}
+    .logo{font-size:1.4em;font-weight:700;color:#ff4d4d;text-shadow:0 0 10px #ff1a1a;display:flex;align-items:center;gap:8px}
+
+    /* HEADER */
+    header{flex:0 0 auto;min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:0 15px}
+    header h1{font-size:2.2em;color:#ff3333;text-shadow:0 0 20px #ff0000,0 0 40px #990000;animation:glow 2s infinite alternate}
+    header p{margin-top:12px;font-size:1.05em;color:#ddd}
+    .btn{display:inline-block;margin-top:25px;padding:14px 30px;background:#b30000;color:#fff;text-decoration:none;border-radius:8px;transition:.3s;font-weight:600;position:relative;overflow:hidden;box-shadow:0 0 18px rgba(255,0,0,0.6);animation:pulse 2s infinite}
+    .btn i{margin-right:6px}
+    .btn:hover{background:#e60000;box-shadow:0 0 25px rgba(255,0,0,0.8)}
+    .btn::after{content:"";position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.3);border-radius:50%;transform:translate(-50%,-50%);opacity:0}
+    .btn:active::after{width:200%;height:200%;opacity:0;transition:width .6s ease,height .6s ease,opacity .8s ease}
+    @keyframes pulse{0%{box-shadow:0 0 15px rgba(255,0,0,0.6)}50%{box-shadow:0 0 30px rgba(255,0,0,1)}100%{box-shadow:0 0 15px rgba(255,0,0,0.6)}}
+    @keyframes glow{from{text-shadow:0 0 10px #ff0000,0 0 20px #ff1a1a}to{text-shadow:0 0 20px #ff1a1a,0 0 40px #ff0000}}
+
+    /* SECTION */
+    section{max-width:900px;margin:40px auto;padding:0 20px;flex:0 0 auto;opacity:0;transform:translateY(40px);transition:all .8s ease}
+    section.visible{opacity:1;transform:translateY(0)}
+    h2{text-align:center;color:#ff4444;font-size:1.8em;margin-bottom:15px;text-shadow:0 0 15px #ff0000;display:flex;align-items:center;justify-content:center;gap:10px}
+    .divider{height:3px;width:70px;background:red;margin:0 auto 20px;border-radius:2px}
+    .status{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;text-align:center}
+    .status div{flex:1 1 200px;background:#111;border:1px solid #330000;border-radius:8px;padding:18px}
+    .status span{font-size:1.6em;color:#ff6666;display:block;margin-bottom:6px}
+    .status i{margin-right:6px;color:#ff4d4d}
+    pre{background:#111;border:1px solid #333;padding:18px;border-radius:6px;overflow-x:auto;max-width:700px;margin:0 auto;font-size:0.9em;text-align:left;color:#0f0}
+
+    /* UNBLOCK BOX */
+    .unblock-box{background:#111;border:1px solid #330000;border-radius:8px;padding:18px;line-height:1.5;max-width:700px;margin:0 auto;font-size:0.9em;color:#ddd}
+    .unblock-box ol{margin:10px 0 0 20px}
+    .unblock-box li{margin-bottom:8px}
+    .unblock-box i{color:#ff4444;margin-right:6px}
+
+    /* FOOTER */
+    footer{flex-shrink:0;text-align:center;padding:12px;font-size:.85em;color:#bbb;background:rgba(10,0,0,0.15);margin-top:auto}
+
+    /* Responsive */
+    @media(min-width:768px){
+      header h1{font-size:2.8em}
+      header p{font-size:1.2em}
+      .btn{padding:15px 40px;font-size:1.05em}
+      .status span{font-size:1.9em}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo"><i class="fa-solid fa-fire"></i> CazyBot</div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>CazyStore Bot</h1>
+    <p>Share Tool Free - Tham gia ngay!</p>
+    <a href="https://t.me/CazyLab_bot" class="btn"><i class="fa-brands fa-telegram"></i>Mở Bot Ngay</a>
+  </header>
+
+  <!-- STATUS -->
+  <section id="status">
+    <h2><i class="fa-solid fa-chart-line"></i> Thống Kê</h2>
+    <div class="divider"></div>
+    <div class="status">
+      <div><span id="online"><i class="fa-solid fa-user"></i>0</span>Đang Online</div>
+      <div><span id="today"><i class="fa-solid fa-calendar-day"></i>0</span>Hôm Nay</div>
+      <div><span id="total"><i class="fa-solid fa-globe"></i>0</span>Tổng Truy Cập</div>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section id="guide">
+    <h2><i class="fa-solid fa-book"></i> Hướng Dẫn</h2>
+    <div class="divider"></div>
+    <pre>
+# Lệnh cơ bản:
+/start       - Bắt đầu bot
+/sharetool   - Nhận tool free mới nhất
+/help        - Danh sách lệnh hỗ trợ
+    </pre>
+  </section>
+
+  <!-- UNBLOCK -->
+  <section id="unblock">
+    <h2><i class="fa-solid fa-unlock-alt"></i> Mở Chặn</h2>
+    <div class="divider"></div>
+    <div class="unblock-box">
+      <p><b>Nếu bạn không mở được bot:</b></p>
+      <ol>
+        <li><i class="fa-solid fa-download"></i> Tải <b>1.1.1.1 (Cloudflare WARP)</b> trên App Store / Google Play</li>
+        <li><i class="fa-solid fa-toggle-on"></i> Bật kết nối 1.1.1.1</li>
+        <li><i class="fa-brands fa-telegram"></i> Mở lại bot: <a href="https://t.me/cazystore_bot" style="color:#ff6666">https://t.me/cazystore_bot</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>© 2025 CazyStore. All rights reserved.</footer>
+
+  <script>
+    // Stats random update
+    let stats={online:120,today:500,total:8900};
+    function updateStats(){
+      Object.keys(stats).forEach(id=>{
+        let change=Math.floor(Math.random()*5-2);
+        stats[id]=Math.max(0,stats[id]+change);
+        document.getElementById(id).innerHTML=document.getElementById(id).innerHTML.replace(/\d+/,stats[id]);
+      });
+    }
+    setInterval(updateStats,2000);updateStats();
+
+    // Particles
+    const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+    let w,h,particles=[];
+    function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
+    window.addEventListener('resize',resize);resize();
+    for(let i=0;i<80;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.7,dy:(Math.random()-0.5)*0.7})}
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle="rgba(255,0,0,0.7)";
+      particles.forEach(p=>{
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        p.x+=p.dx;p.y+=p.dy;
+        if(p.x<0||p.x>w) p.dx*=-1;if(p.y<0||p.y>h) p.dy*=-1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Scroll reveal
+    const sections=document.querySelectorAll("section");
+    const reveal=()=>{sections.forEach(s=>{const rect=s.getBoundingClientRect();if(rect.top<window.innerHeight-100){s.classList.add("visible");}});}
+    window.addEventListener("scroll",reveal);reveal();
+  </script>
+</body>
+</html>
